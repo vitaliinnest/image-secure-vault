@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Button, Container, Box } from "@mui/material";
 
-// todo: add web3.storage <a> link
 const HomePage = () => {
   return (
     <Container component="main" maxWidth="md">
