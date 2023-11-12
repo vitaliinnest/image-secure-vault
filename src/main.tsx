@@ -22,7 +22,7 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
-            path: 'upload',
+            path: 'upload-photo',
             element: <UploadPhoto />,
           },
           // {

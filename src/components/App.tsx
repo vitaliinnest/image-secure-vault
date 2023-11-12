@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import AuthorizationPage from "./AuthorizationPage";
 import { useLocalStorage } from "usehooks-ts";
 import { TOKEN_STORAGE_KEY } from "../services/auth";
-import { createTheme } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
