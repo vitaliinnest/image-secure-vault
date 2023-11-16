@@ -1,27 +1,19 @@
-# React + TypeScript + Vite
+# Image Secure Vault
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+Your App Name is an application for [brief description of your app].
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Store images securely using [Web3.Storage](https://web3.storage/).
+- Utilize Azure AI Content Safety for image validation.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Image Storage**: Easily upload and store images securely using Web3.Storage.
+- **Content Validation**: Leverage Azure AI Content Safety to validate uploaded images.
+- **Gallery**: Explore a gallery of stored images.
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies Used
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- [Web3.Storage](https://web3.storage/)
+- [Azure AI Content Safety](https://azure.microsoft.com/en-us/services/cognitive-services/content-moderator/)
