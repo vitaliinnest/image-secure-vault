@@ -1,7 +1,6 @@
 import { Web3Storage } from "web3.storage";
-import { getSavedToken } from "./auth";
 
-const namePrefix = "ImageGallery";
+const postfix = "Image Secure Vault";
 
 interface StoreImageResult {
   cid: string;
@@ -21,16 +20,15 @@ function makeGatewayURL(cid: string, path: string): string {
 
 export async function storeImage(
   imageFile: File,
-  caption: string
+  caption: string,
+  token: string
 ): Promise<StoreImageResult> {
-  const uploadName = [namePrefix, caption].join("|");
+  const uploadName = [caption, postfix].join(" | ");
 
   const metadataFile = jsonFile("metadata.json", {
     path: imageFile.name,
     caption,
   });
-
-  const token = getSavedToken()!;
 
   const web3storage = new Web3Storage({ token });
   const cid = await web3storage.put([imageFile, metadataFile], {
@@ -45,8 +43,7 @@ export async function storeImage(
   return { cid, metadataGatewayURL, imageGatewayURL, imageURI, metadataURI };
 }
 
-export async function* listImageMetadata(): AsyncGenerator<ImageMetadata> {
-  const token = getSavedToken();
+export async function* listImageMetadata(token: string): AsyncGenerator<ImageMetadata> {
   if (!token) {
     console.error("No API token for Web3.Storage found.");
     return;
@@ -54,7 +51,7 @@ export async function* listImageMetadata(): AsyncGenerator<ImageMetadata> {
 
   const web3storage = new Web3Storage({ token });
   for await (const upload of web3storage.list()) {
-    if (!upload.name || !upload.name.startsWith(namePrefix)) {
+    if (!upload.name || !upload.name.endsWith(postfix)) {
       continue;
     }
 

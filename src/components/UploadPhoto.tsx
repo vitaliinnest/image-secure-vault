@@ -13,17 +13,21 @@ import {
 } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { storeImage } from "../services/web3storage";
+import { TOKEN_STORAGE_KEY } from "../services/consts";
+import { useLocalStorage } from "usehooks-ts";
 
 function UploadPhoto() {
   const [image, setImage] = React.useState<ImageType | undefined>();
   const [title, setTitle] = React.useState<string>("");
+  const [token] = useLocalStorage<string | undefined>(TOKEN_STORAGE_KEY, undefined);
 
   const onChange = (imageList: ImageListType) => {
     setImage(imageList[0]);
   };
 
-  const onUploadToGallery = () => {
-
+  const onUploadToGallery = async () => {
+    await storeImage(image!.file!, title, token!);
   };
 
   const onTextChange = (
@@ -121,8 +125,9 @@ function UploadPhoto() {
           <Button
             variant="contained"
             sx={{ mt: 5, width: "50%", height: "50px" }}
+            onClick={onUploadToGallery}
           >
-            <CloudUploadIcon sx={{ mr: 3 }} onClick={onUploadToGallery} />
+            <CloudUploadIcon sx={{ mr: 3 }} />
             Upload to Gallery
           </Button>
         </>

@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { TOKEN_STORAGE_KEY } from "../services/auth";
+import { TOKEN_STORAGE_KEY } from "../services/consts";
 import { useLocalStorage } from "usehooks-ts";
 
 function RequireAuth() {

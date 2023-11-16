@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, TextField, Button, Container, Box, CircularProgress } from '@mui/material';
 import { validateToken } from '../services/web3storage';
-import { TOKEN_STORAGE_KEY } from '../services/auth';
+import { TOKEN_STORAGE_KEY } from '../services/consts';
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useLocalStorage } from 'usehooks-ts';
 
@@ -60,7 +60,7 @@ const AuthorizationPage = () => {
           <br/><br/>
           Need a token? See how to generate one{' '}
           <a
-            href="https://web3.storage/docs/how-tos/generate-api-token/"
+            href="https://old.web3.storage/docs/how-tos/generate-api-token/"
             target="_blank"
             rel="noopener noreferrer"
           >
