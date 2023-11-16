@@ -32,6 +32,7 @@ export async function isImageSafe(base64image: string) {
     return verifyResponse(response);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function verifyResponse(resp: any): ImageAnalysisResult {
     const response = resp.categoriesAnalysis as AnalysisItem[];
     const finalResult: ImageAnalysisResult = {categoriesResult: response, isValid: true};
