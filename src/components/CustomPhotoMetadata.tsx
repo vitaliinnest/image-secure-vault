@@ -1,4 +1,3 @@
-import React from "react";
 import { ImageMetadata, convertIpfsUriToHttps } from "../services/web3storage";
 import CircularProgress from "@mui/material/CircularProgress";
 import Container from "@mui/material/Container";

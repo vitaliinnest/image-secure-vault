@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, TextField, Button, Container, Box, CircularProgress } from '@mui/material';
 import { validateToken } from '../services/web3storage';

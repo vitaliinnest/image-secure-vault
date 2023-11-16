@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Container, Box, Button } from '@mui/material';
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';

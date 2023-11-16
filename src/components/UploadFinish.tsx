@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LocationState } from "../main";
 import { ImageMetadata, storeImage } from "../services/web3storage";
