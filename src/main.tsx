@@ -9,6 +9,7 @@ import UploadPhoto from "./components/UploadPhoto";
 import HomePage from "./components/HomePage";
 import ValidatePhoto from "./components/ValidatePhoto";
 import UploadFinish from "./components/UploadFinish";
+import Gallery from "./components/Gallery";
 
 export interface LocationState {
   image: File;
@@ -39,11 +40,11 @@ const router = createBrowserRouter([
           {
             path: 'upload-finish',
             element: <UploadFinish />,
-          }
-          // {
-          //   path: 'gallery',
-          //   element: <Gallery />,
-          // },
+          },
+          {
+            path: 'gallery',
+            element: <Gallery />,
+          },
           // {
           //   path: 'settings',
           //   element: <Settings />,
