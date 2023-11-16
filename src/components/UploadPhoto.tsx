@@ -13,21 +13,20 @@ import {
 } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { storeImage } from "../services/web3storage";
-import { TOKEN_STORAGE_KEY } from "../services/consts";
-import { useLocalStorage } from "usehooks-ts";
+import { useNavigate } from "react-router-dom";
+import { LocationState } from "../main";
 
 function UploadPhoto() {
   const [image, setImage] = React.useState<ImageType | undefined>();
   const [title, setTitle] = React.useState<string>("");
-  const [token] = useLocalStorage<string | undefined>(TOKEN_STORAGE_KEY, undefined);
+  const navigate = useNavigate();
 
   const onChange = (imageList: ImageListType) => {
     setImage(imageList[0]);
   };
 
-  const onUploadToGallery = async () => {
-    await storeImage(image!.file!, title, token!);
+  const onContinueClick = () => {
+    navigate('/ai-validation', { state: { image: image!.file!, title } as LocationState });
   };
 
   const onTextChange = (
@@ -125,10 +124,10 @@ function UploadPhoto() {
           <Button
             variant="contained"
             sx={{ mt: 5, width: "50%", height: "50px" }}
-            onClick={onUploadToGallery}
+            onClick={onContinueClick}
           >
             <CloudUploadIcon sx={{ mr: 3 }} />
-            Upload to Gallery
+            Continue
           </Button>
         </>
       )}
