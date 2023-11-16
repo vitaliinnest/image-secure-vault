@@ -36,7 +36,7 @@ function Gallery() {
 
   return (
     <Container style={{ marginTop: "30px" }}>
-      <Grid container spacing={3} style={{ height: "70vh" }}>
+      <Grid container spacing={3}>
         {loading ? (
           <CircularProgress />
         ) : (
