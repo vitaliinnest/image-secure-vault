@@ -2,7 +2,9 @@ import { Web3Storage } from "web3.storage";
 
 const postfix = "Image Secure Vault";
 
-export interface StoreImageResult {
+export interface ImageMetadata {
+  path: string;
+  caption: string;
   cid: string;
   imageURI: string;
   metadataURI: string;
@@ -30,7 +32,7 @@ export async function storeImage(
   imageFile: File,
   caption: string,
   token: string
-): Promise<StoreImageResult> {
+): Promise<ImageMetadata> {
   const uploadName = [caption, postfix].join(" | ");
 
   const metadataFile = jsonFile("metadata.json", {
@@ -39,16 +41,25 @@ export async function storeImage(
   });
 
   const web3storage = new Web3Storage({ token });
-  const cid = await web3storage.put([imageFile, metadataFile], {
-    name: uploadName,
-  });
+  const cid = await web3storage.put([imageFile, metadataFile], { name: uploadName });
+  
+  return buildImageMetadata(cid, caption, imageFile.name);
+}
 
+function buildImageMetadata(cid: string, imageCaption: string, imagePath: string): ImageMetadata {
   const metadataGatewayURL = makeGatewayURL(cid, "metadata.json");
-  const imageGatewayURL = makeGatewayURL(cid, imageFile.name);
-  const imageURI = `ipfs://${cid}/${imageFile.name}`;
+  const imageGatewayURL = makeGatewayURL(cid, imagePath);
+  const imageURI = `ipfs://${cid}/${imagePath}`;
   const metadataURI = `ipfs://${cid}/metadata.json`;
-
-  return { cid, metadataGatewayURL, imageGatewayURL, imageURI, metadataURI };
+  return {
+    caption: imageCaption,
+    path: imagePath,
+    cid,
+    metadataGatewayURL,
+    imageGatewayURL,
+    imageURI,
+    metadataURI,
+  };
 }
 
 export async function* listImageMetadata(token: string): AsyncGenerator<ImageMetadata> {
@@ -73,30 +84,19 @@ export async function* listImageMetadata(token: string): AsyncGenerator<ImageMet
   }
 }
 
-export interface ImageMetadata {
-  cid: string;
-  path: string;
-  caption: string;
-  gatewayURL: string;
-  uri: string;
-}
-
 export async function getImageMetadata(cid: string): Promise<ImageMetadata> {
-  const url = makeGatewayURL(cid, "metadata.json");
-  const res = await fetch(url);
-  if (!res.ok) {
+  const metadataUrl = makeGatewayURL(cid, "metadata.json");
+  const metadataResult = await fetch(metadataUrl);
+  if (!metadataResult.ok) {
     throw new Error(
-      `error fetching image metadata: [${res.status}] ${res.statusText}`
+      `error fetching image metadata: [${metadataResult.status}] ${metadataResult.statusText}`
     );
   }
 
-  const metadata = await res.json();
-  const gatewayURL = makeGatewayURL(cid, metadata.path);
-  const uri = `ipfs://${cid}/${metadata.path}`;
-
-  return { ...metadata, cid, gatewayURL, uri };
+  const storedMetadata = await metadataResult.json();
+  return buildImageMetadata(cid, storedMetadata.caption, storedMetadata.path);
 }
-
+  
 export async function validateToken(token: string): Promise<boolean> {
   const web3storage = new Web3Storage({ token });
 

@@ -10,6 +10,7 @@ import HomePage from "./components/HomePage";
 import ValidatePhoto from "./components/ValidatePhoto";
 import UploadFinish from "./components/UploadFinish";
 import Gallery from "./components/Gallery";
+import PhotoMetadata from "./components/PhotoMetadata";
 
 export interface LocationState {
   image: File;
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
           {
             path: 'upload-finish',
             element: <UploadFinish />,
+          },
+          {
+            path: 'photo/:cid',
+            element: <PhotoMetadata />,
           },
           {
             path: 'gallery',

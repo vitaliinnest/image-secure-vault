@@ -19,18 +19,15 @@ function ValidatePhoto() {
 
   useEffect(() => {
     const reader = new FileReader();
-
     reader.onload = (event) => {
       if (event.target?.result) {
         const base64String = event.target.result.toString().split(',')[1];
         validateImage(base64String);
       }
     };
-
     reader.onerror = (error) => {
       console.error("Error reading the file:", error);
     };
-
     reader.readAsDataURL(image);
   }, [image]);
 
@@ -111,7 +108,10 @@ function ValidatePhoto() {
       <Grid container spacing={3} justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
         <Grid item>
           <h1>{title}</h1>
-          <img src={URL.createObjectURL(image)} alt={title} />
+          <img
+            style={{ maxWidth: "40%", maxHeight: "40%", objectFit: "contain" }}
+            src={URL.createObjectURL(image)} alt={title}
+          />
         </Grid>
         <Grid item>
           {loading ? <CircularProgress /> : renderAnalysisResult()}
