@@ -18,20 +18,22 @@ function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <CameraAltIcon sx={{ display: { xs: "none", md: "flex" }, mr: 3 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              fontSize: 25,
-              mr: 20,
-              display: { xs: "none", md: "flex" },
-              fontWeight: 600,
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Image Secure Vault
-          </Typography>
+          <Link to="/home" style={{ textDecoration: "none" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                fontSize: 25,
+                mr: 20,
+                display: { xs: "none", md: "flex" },
+                fontWeight: 600,
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              Image Secure Vault
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Link to="/upload-photo" style={{ textDecoration: "none" }}>
