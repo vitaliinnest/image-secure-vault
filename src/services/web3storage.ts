@@ -2,7 +2,7 @@ import { Web3Storage } from "web3.storage";
 
 const postfix = "Image Secure Vault";
 
-interface StoreImageResult {
+export interface StoreImageResult {
   cid: string;
   imageURI: string;
   metadataURI: string;
@@ -16,6 +16,14 @@ function jsonFile(filename: string, obj: object): File {
 
 function makeGatewayURL(cid: string, path: string): string {
   return `https://${cid}.ipfs.dweb.link/${encodeURIComponent(path)}`;
+}
+
+export function convertIpfsUriToHttps(uri: string): string {
+  const ipfsPrefix = 'ipfs://';
+  const ipfsIoPrefix = 'https://ipfs.io/ipfs/';
+  
+  const hash = uri.substring(ipfsPrefix.length);
+  return `${ipfsIoPrefix}${hash}`;
 }
 
 export async function storeImage(
@@ -65,7 +73,7 @@ export async function* listImageMetadata(token: string): AsyncGenerator<ImageMet
   }
 }
 
-interface ImageMetadata {
+export interface ImageMetadata {
   cid: string;
   path: string;
   caption: string;

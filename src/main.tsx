@@ -8,6 +8,7 @@ import RequireAuth from "./components/RequireAuth";
 import UploadPhoto from "./components/UploadPhoto";
 import HomePage from "./components/HomePage";
 import ValidatePhoto from "./components/ValidatePhoto";
+import UploadFinish from "./components/UploadFinish";
 
 export interface LocationState {
   image: File;
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
           {
             path: 'ai-validation',
             element: <ValidatePhoto />
+          },
+          {
+            path: 'upload-finish',
+            element: <UploadFinish />,
           }
           // {
           //   path: 'gallery',
