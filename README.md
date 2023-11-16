@@ -1,8 +1,8 @@
-# Secure Image Chain
+# Image Secure Vault
 
 ## Overview
 
-Secure Image Chain is a secure image management application that leverages the power of [Web3.Storage](https://web3.storage/) for storing images and utilizes Azure AI Content Safety for image validation. This application provides a seamless and secure way to manage your images with the assurance of content safety.
+Image Secure Vault is a secure image management application that leverages the power of [Web3.Storage](https://web3.storage/) for storing images and utilizes Azure AI Content Safety for image validation. This application provides a seamless and secure way to manage your images with the assurance of content safety.
 
 - Store images securely using the decentralized storage solution, [Web3.Storage](https://web3.storage/).
 - Employ Azure AI Content Safety for advanced image validation and moderation.
