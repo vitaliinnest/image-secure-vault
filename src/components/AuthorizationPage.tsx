@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, TextField, Button, Container, Box, CircularProgress } from '@mui/material';
-import { validateToken } from '../services/storage';
+import { validateToken } from '../services/web3storage';
 import { TOKEN_STORAGE_KEY } from '../services/auth';
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useLocalStorage } from 'usehooks-ts';
 
 const AuthorizationPage = () => {
-  const [token, setToken] = useLocalStorage<string | undefined>(TOKEN_STORAGE_KEY, undefined);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setToken] = useLocalStorage<string | undefined>(TOKEN_STORAGE_KEY, undefined);
   const [invalidToken, setInvalidToken] = useState(false);
   const [tokenValue, setTokenValue] = useState('');
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleAuthorization = async () => {
@@ -19,11 +20,9 @@ const AuthorizationPage = () => {
       return;
     }
 
-    setLoading(true); // Set loading to true when starting authorization
-
+    setLoading(true);
     const isValid = await validateToken(tokenValue);
-
-    setLoading(false); // Set loading to false after authorization completes
+    setLoading(false);
 
     if (isValid) {
       setToken(tokenValue);
@@ -34,7 +33,7 @@ const AuthorizationPage = () => {
     }
   };
 
-  const handleTokenChange = (event) => {
+  const handleTokenChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setTokenValue(event.target.value);
     setInvalidToken(false);
   };
@@ -90,7 +89,7 @@ const AuthorizationPage = () => {
           color="primary"
           onClick={handleAuthorization}
           sx={{ mt: 3 }}
-          disabled={loading} // Disable the button when loading
+          disabled={loading}
         >
           {loading ? <CircularProgress size={24} /> : 'Authorize'}
         </Button>
