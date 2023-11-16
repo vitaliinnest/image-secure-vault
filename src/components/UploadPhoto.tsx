@@ -113,7 +113,7 @@ function UploadPhoto() {
         <>
           <TextField
             sx={{ mt: 5, width: "70%" }}
-            label="Image Title"
+            label="Photo Title"
             variant="outlined"
             value={title}
             onChange={onTextChange}
