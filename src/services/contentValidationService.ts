@@ -49,5 +49,3 @@ function verifyResponse(resp: any): ImageAnalysisResult {
 
     return finalResult;
 }
-export { ImageAnalysisResult };
-

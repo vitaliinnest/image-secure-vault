@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
 import { LocationState } from "../main";
-import { isImageSafe, ImageAnalysisResult } from "../services/contentValidationService";
+import { isImageSafe } from "../services/contentValidationService";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import WarningIcon from "@mui/icons-material/Warning";
-import { AnalysisItem } from "../models/imageAnalysisModels";
+import { AnalysisItem, ImageAnalysisResult } from "../models/imageAnalysisModels";
+import { Box, Typography, Button } from "@mui/material";
 
 function ValidatePhoto() {
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
   const location = useLocation();
   const { image, title } = location.state as LocationState;
   const [base64StringImage, setBase64StringImage] = useState<string | undefined>();
@@ -46,6 +49,14 @@ function ValidatePhoto() {
     }
   };
 
+  const handleBackClick = () => {
+    navigate("/upload-photo"); // Use navigate instead of history.push
+  };
+
+  const handleContinueClick = () => {
+    navigate("/upload-finish"); // Use navigate instead of history.push
+  };
+
   const renderAnalysisResult = () => {
     if (!analysisResult) {
       return null;
@@ -57,39 +68,50 @@ function ValidatePhoto() {
 
     return (
       <div>
-        <h2>AI Analysis Result</h2>
-        <p>
+        <Typography style={{ fontWeight: "bold" }} variant="h6">AI Analysis Result</Typography>
+        <Box display="flex" alignItems="center">
           {hasInappropriateItems ? (
-            <>
-              <WarningIcon style={{ color: "red", marginRight: 5 }} />
-              Image is not appropriate
-            </>
+            <WarningIcon style={{ color: "red", marginRight: 5 }} />
           ) : (
-            <>
-              <CheckCircleIcon style={{ color: "green", marginRight: 5 }} />
-              Image is OK
-            </>
+            <CheckCircleIcon style={{ color: "green", marginRight: 5 }} />
           )}
-        </p>
-        <ul>
+          <Typography variant="body1">
+            {hasInappropriateItems
+              ? "Image is not appropriate"
+              : "Image is OK"}
+          </Typography>
+        </Box>
+        <ul style={{ listStyleType: "none", padding: 0 }}>
           {analysisResult.categoriesResult.map((item: AnalysisItem, index: number) => (
             <li key={index}>
-              {item.severity === 0 ? (
-                <CheckCircleIcon style={{ color: "green", marginRight: 5 }} />
-              ) : (
-                <WarningIcon style={{ color: "red", marginRight: 5 }} />
-              )}
-              <b>{item.category}</b>: {item.severity}/5
+              <Box display="flex" alignItems="center">
+                {item.severity === 0 ? (
+                  <CheckCircleIcon style={{ color: "green", marginRight: 5 }} />
+                ) : (
+                  <WarningIcon style={{ color: "red", marginRight: 5 }} />
+                )}
+                <Typography>
+                  <b>{item.category}</b>: {item.severity}/5
+                </Typography>
+              </Box>
             </li>
           ))}
         </ul>
+        <Box mt={2}>
+          <Button onClick={handleBackClick} variant="contained" color="primary" sx={{ mr: 5 }}>
+            Back
+          </Button>
+          <Button onClick={handleContinueClick} variant="contained" color="primary" disabled={hasInappropriateItems}>
+            Continue
+          </Button>
+        </Box>
       </div>
     );
   };
 
   return (
     <Container>
-      <Grid container spacing={3} justifyContent="center" alignItems="center" style={{ height: "87vh" }}>
+      <Grid container spacing={3} justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
         <Grid item>
           <h1>{title}</h1>
           <img src={URL.createObjectURL(image)} alt={title} />
