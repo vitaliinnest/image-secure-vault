@@ -3,7 +3,7 @@ import {ImageAnalysisResult, AnalysisItem} from "../models/imageAnalysisModels.t
 const url = "https://image-chain-resource.cognitiveservices.azure.com/contentsafety/image:analyze?api-version=2023-10-01"
 const apiKey = "cb1fadf790a24959ae477a8f39ca6e2a"
 
-export async function isImageSafe(base64image: string) {
+export async function isImageSafe(base64image: string): Promise<ImageAnalysisResult> {
     const body = {
         image: { 
             content: base64image
@@ -49,3 +49,5 @@ function verifyResponse(resp: any): ImageAnalysisResult {
 
     return finalResult;
 }
+export { ImageAnalysisResult };
+

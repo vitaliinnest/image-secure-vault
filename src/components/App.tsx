@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import NavBar from "./NavBar";
 import AuthorizationPage from "./AuthorizationPage";
 import { useLocalStorage } from "usehooks-ts";
 import { TOKEN_STORAGE_KEY } from "../services/consts";
-import { createTheme } from '@mui/material/styles';
+// https://github.com/mui/material-ui/issues/31835
 
 const theme = createTheme({
   palette: {
