@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
+import { useLocation, useNavigate } from "react-router-dom";
 import { LocationState } from "../main";
 import { isImageSafe } from "../services/contentValidationService";
 import Container from "@mui/material/Container";
@@ -12,10 +11,9 @@ import { AnalysisItem, ImageAnalysisResult } from "../models/imageAnalysisModels
 import { Box, Typography, Button } from "@mui/material";
 
 function ValidatePhoto() {
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const navigate = useNavigate();
   const location = useLocation();
   const { image, title } = location.state as LocationState;
-  const [base64StringImage, setBase64StringImage] = useState<string | undefined>();
   const [analysisResult, setAnalysisResult] = useState<ImageAnalysisResult | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -25,7 +23,6 @@ function ValidatePhoto() {
     reader.onload = (event) => {
       if (event.target?.result) {
         const base64String = event.target.result.toString().split(',')[1];
-        setBase64StringImage(base64String);
         validateImage(base64String);
       }
     };
@@ -50,11 +47,11 @@ function ValidatePhoto() {
   };
 
   const handleBackClick = () => {
-    navigate("/upload-photo"); // Use navigate instead of history.push
+    navigate("/upload-photo");
   };
 
   const handleContinueClick = () => {
-    navigate("/upload-finish"); // Use navigate instead of history.push
+    navigate("/upload-finish");
   };
 
   const renderAnalysisResult = () => {
