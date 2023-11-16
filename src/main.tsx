@@ -11,6 +11,7 @@ import ValidatePhoto from "./components/ValidatePhoto";
 import UploadFinish from "./components/UploadFinish";
 import Gallery from "./components/Gallery";
 import PhotoMetadata from "./components/PhotoMetadata";
+import Settings from "./components/Settings";
 
 export interface LocationState {
   image: File;
@@ -50,10 +51,10 @@ const router = createBrowserRouter([
             path: 'gallery',
             element: <Gallery />,
           },
-          // {
-          //   path: 'settings',
-          //   element: <Settings />,
-          // }
+          {
+            path: 'settings',
+            element: <Settings />,
+          }
         ]
       }
     ]
