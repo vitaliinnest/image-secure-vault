@@ -1,25 +1,17 @@
 import React from "react";
-import ImageUploading, { ImageListType } from "react-images-uploading";
-import {
-  Button,
-  Container,
-  Typography,
-  IconButton,
-  Paper,
-  Stack,
-} from "@mui/material";
+import ImageUploading, { ImageListType, ImageType } from "react-images-uploading";
+import { Button, Container, Typography, Paper, Stack } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 function UploadPhoto() {
-  const [images, setImages] = React.useState<ImageListType>([]);
+  const [image, setImage] = React.useState<ImageType | undefined>();
 
   const onChange = (
     imageList: ImageListType,
     addUpdateIndex: number[] | undefined
   ) => {
     console.log(imageList, addUpdateIndex);
-    setImages(imageList);
+    setImage(imageList[0]);
   };
 
   return (
@@ -30,7 +22,7 @@ function UploadPhoto() {
 
       <ImageUploading
         multiple
-        value={images}
+        value={image ? [image] : []}
         onChange={onChange}
         maxNumber={1}
       >
@@ -43,7 +35,7 @@ function UploadPhoto() {
           dragProps,
         }) => (
           <Paper elevation={3} sx={{ p: 3, mt: 2 }}>
-            <Stack spacing={2}>
+            {!image && <Stack spacing={2}>
               <Button
                 variant="contained"
                 color="primary"
@@ -54,21 +46,20 @@ function UploadPhoto() {
                 <AddPhotoAlternateIcon sx={{ mr: 1 }} />
                 Click or Drop here
               </Button>
-            </Stack>
-
+            </Stack>}
             <Stack spacing={2} mt={2}>
               {imageList.map((image, index) => (
                 <div key={index} className="image-item">
                   <img src={image.dataURL} alt="" width="100%" />
-                  <Stack spacing={1} direction="row" alignItems="center">
+                  <Stack spacing={1} direction="row" alignItems="center" justifyContent="center">
                     <Button
-                      variant="outlined"
+                      variant="contained"
                       onClick={() => onImageUpdate(index)}
                     >
                       Update
                     </Button>
                     <Button
-                      variant="outlined"
+                      variant="contained"
                       color="error"
                       onClick={() => onImageRemove(index)}
                     >
