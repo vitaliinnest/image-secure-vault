@@ -51,7 +51,7 @@ function ValidatePhoto() {
   };
 
   const handleContinueClick = () => {
-    navigate("/upload-finish");
+    navigate("/upload-finish", { state: { image, title } });
   };
 
   const renderAnalysisResult = () => {
